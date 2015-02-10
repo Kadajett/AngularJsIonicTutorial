@@ -1,0 +1,38 @@
+<ion-view hide-back-button="true" title="Awesome">
+	button
+	<ion-content padding="true">
+		<h1 id="topOfPage">Dribbble Viewer</h1>
+		<!-- <button class="button" ng-click="toIntro()">Do Tutorial Again</button> -->
+		<div class="list card" data-ng-repeat="image in imageList">
+		 	
+			<div class="item item-avatar">
+				<img ng-src="{{image.player.avatar_url}}">
+				<h2>{{image.player.username}}</h2>
+				<p>{{image.player.location}}</p>
+				
+				<ion-toggle data-ng-if="image.image_url.indexOf('gif') > -1" data-ng-click="setActive($index)" ng-model="image.active" toggle-class="toggle-energized">Play Gif</ion-toggle>
+				
+
+				<!-- <div class="ionic" data-ng-if="image.image_url.indexOf('gif') > -1" > play </div> -->
+
+			</div>
+			<div class="item item-image" data-ng-if="image.image_url.indexOf('gif') == -1">
+				<img data-ng-src="{{image.image_url}}">
+			</div>
+			<div class="item item-image" data-ng-click="setActive($index)" data-ng-if="image.image_url.indexOf('gif') > -1">
+
+				<img data-ng-if="!image.active" data-ng-src="{{image.image_teaser_url}}">
+				<img data-ng-show="image.active" data-ng-src="{{image.image_url}}">
+			</div>
+			<a class="item item-icon-left  bar bar-royal" target="_blank" data-ng-href="{{image.url}}">
+				<i class="icon ion-music-note energized"></i>
+				Visit Original Image
+			</a>
+		</div>
+		<ion-infinite-scroll
+			on-infinite="nextPage()"
+			distance="5%" data-ng-if="page < 10">
+		</ion-infinite-scroll>
+	</ion-content>
+
+</ion-view>
